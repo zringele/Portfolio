@@ -4,31 +4,67 @@
     <title>Mano Treniruote</title>
     <meta charset="utf-8"/>
     <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
        #body {
         width : 100%;
-        height : 500px;
         position: fixed;
        } 
+       #img {
+        mask: url(#masking);
+        z-index: -8;
+       }
        img {
         width: 100%;
         height: 100%;
+        position: fixed;
+        top: 0px;
         object-fit: cover;
-        -webkit-filter: blur(5px);
-        -moz-filter: blur(5px);
-        -o-filter: blur(5px);
-        -ms-filter: blur(5px);
-        filter: blur(5px);
         z-index: -9;
+       }
+       #blur {
+        -webkit-filter: blur(15px);
+        -moz-filter: blur(15px);
+        -o-filter: blur(15px);
+        -ms-filter: blur(15px);
+        filter: blur(15px);
+       }
+       #textDisplay{
+        z-index: 99;
+        max-width: 500px;
+        position: fixed;
+        top: 100px;
+        right: 100px;
+        font-size: 30px;
+        color: white;
+       }
+       #mouse_wheel {
+        display:block;
+           width: 55px;
+           height: 55px;
+           position: absolute;
+           top: calc(90% - 55px);
+           left: calc(50% - 55px);
+           color : 'red';
        }
     </style>
 </head>
 <body>
     <div id='body'>
-        <img src='background.jpg'></img>
+        <img id='img' src='background.jpg'></img>
     </div>
+    <img id='blur' src='background.jpg'></img>
+    <svg>
+        <mask id="masking" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse">
+            <circle id='circle' cx="700px" cy="700px" r="100px" fill="white" />
+        </mask>
+    </svg>
     <div id ='TextDisplay'></div>
+    <img id="mouse_wheel" src="red_wheel.png"></img>
     <script>
-            var text = 'Sveiki, mano vardas yra Žilvinas';
+            var text = 'Labas, aš esu Kava. Ne šiaip kava, o labai skani kava. Mane jaunystėje buvo suvalgęs Palminis Musangas. Jis mane suvalgė, nes buvau tobulai sunokus pupelė, bet man ten nepatiko. Norėčiau būt skaniai paruošta ir sofistikuotai išgerta kava.   ...   Gal kavos?';
             var textDiv = document.querySelector('#TextDisplay');
             var lastScroll = 0;
             window.addEventListener('wheel', function(event){
@@ -42,6 +78,14 @@
                     lastScroll--;
                 }
                 textDiv.innerHTML = text.substring(0, lastScroll);;
+            });
+            var blur = document.querySelector('#img');
+            var mask = document.querySelector('#circle');
+            blur.addEventListener('mousemove', function(event){
+                var cx = event.layerX;
+                var cy = event.layerY;
+                circle.setAttribute('cx', (cx) + 'px')
+                circle.setAttribute('cy', (cy) + 'px')
             });
         </script>
 </body>
