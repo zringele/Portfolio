@@ -1,0 +1,48 @@
+<!DOCTYPE = HTML>
+<html>
+<head>
+    <title>Mano Treniruote</title>
+    <meta charset="utf-8"/>
+    <style>
+       #body {
+        width : 100%;
+        height : 500px;
+        position: fixed;
+       } 
+       img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+        z-index: -9;
+       }
+    </style>
+</head>
+<body>
+    <div id='body'>
+        <img src='background.jpg'></img>
+    </div>
+    <div id ='TextDisplay'></div>
+    <script>
+            var text = 'Sveiki, mano vardas yra Žilvinas';
+            var textDiv = document.querySelector('#TextDisplay');
+            var lastScroll = 0;
+            window.addEventListener('wheel', function(event){
+
+                if (event.deltaY > 0){
+                    if (lastScroll <= text.length){
+                        lastScroll++;
+                    }
+                }
+                else {
+                    lastScroll--;
+                }
+                textDiv.innerHTML = text.substring(0, lastScroll);;
+            });
+        </script>
+</body>
+</html>
